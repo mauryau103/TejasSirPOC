@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Api
+  description: Moengage api by umesh
+  contact:
+    name: umesh maurya
+  version: 1.0.0
+servers:
+  - url: http://devapi.com
+  - url: http://prodapi.com
+paths:
+  /hello-open:
+    get:
+      summary: return a simple generic greeting
+      operationId: getGreeting
+      responses:
+        200:
+          description: General greeting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greeting'
+  /hello-open/{name}:
+    parameters:
+      - in: path
+        name: name
+        schema:
+          type: string
+        required: true
+        description: "Name"
+        example: "Marco"
+    get:
+      description: return a greeting with name
+      operationId: getPersonalGreeting
+      responses:
+        200:
+          description: Personal greeting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greeting'
+  /moengage/user:
+    description: add new user
+    post:
+      description: Add a new User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        201:
+          description: Successfull added the record
+components:
+  schemas:
+    Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Hello from Spring'
+          default: 'Hello visitor'
+
+    User:
+      type: object
+      properties:
+        CRMSSync:
+          type: boolean
+          example: false
+        attributes:
+          $ref: '#/components/schemas/Attribute'
+
+    Attribute:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "umesh"
+        firstName:
+          type: string
+          example: "Umesh"
+        lastName:
+          type: string
+          example: "Maurya"
+        mobile:
+          type: string
+          example: "9923751983"
+        email:
+          type: string
+        customerType:
+          type: string
+          example: "Customer"
